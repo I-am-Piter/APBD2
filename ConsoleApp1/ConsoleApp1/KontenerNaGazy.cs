@@ -4,7 +4,7 @@ public class KontenerNaGazy : Kontener
 {
     private double cisnienie;
     private string nazwaGazu;
-    public KontenerNaGazy(double masaLadunku, double wysokosc, double glebokosc, double wagaWlasna, double maxLadownosc,double cisnienie) : base(wysokosc, glebokosc, wagaWlasna, maxLadownosc)
+    public KontenerNaGazy(double wysokosc, double glebokosc, double wagaWlasna, double maxLadownosc,double cisnienie) : base(wysokosc, glebokosc, wagaWlasna, maxLadownosc)
     {
         string newNumerSeryjny = "KON-G-" + (Kontener.lastNum++);
         setNumerSeryjny(newNumerSeryjny);
@@ -13,7 +13,7 @@ public class KontenerNaGazy : Kontener
     
     public void load(String nazwaGazu, double masaLadunku)
     {
-        if (masaLadunku > getMaxLadownosc())
+        if (masaLadunku+getMasaLadunku() > getMaxLadownosc())
         {
             throw new Overfill_exc("przekroczono maksymalną masę ładunku w tym kontenerze");
         }

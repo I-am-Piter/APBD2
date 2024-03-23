@@ -11,28 +11,34 @@ public class KontenerNaPlyny : Kontener,IHazardNotifier
     
     public void load(String rodzajPlynu, double masaLadunku,bool niebezpiecznyLadunek)
     {
-        
+        bool load = true;
         if(niebezpiecznyLadunek)
         {
-            if (masaLadunku > (0.5 * getMaxLadownosc()))
+            if (masaLadunku+getMasaLadunku() > (0.5 * getMaxLadownosc()))
             {
                 HazardNotify();
+                load = false;
             }            
         }
         else
         {
-            if (masaLadunku > (0.9 * getMaxLadownosc()))
+            if (masaLadunku+getMasaLadunku() > (0.9 * getMaxLadownosc()))
             {
                 HazardNotify();
+                load = false;
             }
         }
         
-        if (masaLadunku > getMaxLadownosc())
+        if (masaLadunku+getMasaLadunku() > getMaxLadownosc())
         {
             throw new Overfill_exc("za duża masa ładunku na ten kontener");
         }
-        this.rodzajPlynu = rodzajPlynu;
-        this.setMasaLadunku(getMasaLadunku()+masaLadunku);
+
+        if (load)
+        {
+            this.rodzajPlynu = rodzajPlynu;
+            this.setMasaLadunku(getMasaLadunku() + masaLadunku);
+        }
     }
 
     public string unload()

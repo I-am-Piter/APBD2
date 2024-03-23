@@ -5,15 +5,16 @@ public class KontenerChlodniczy : Kontener
     private string rodzajProduktu;
     private double temperatura;
 
-    protected KontenerChlodniczy(double wysokosc, double glebokosc, double wagaWlasna, double maxLadownosc) : base(wysokosc, glebokosc, wagaWlasna, maxLadownosc)
+    public KontenerChlodniczy(double wysokosc, double glebokosc, double wagaWlasna, double maxLadownosc,double temperatura) : base(wysokosc, glebokosc, wagaWlasna, maxLadownosc)
     {
+        this.temperatura = temperatura;
         string newNumerSeryjny = "KON-C-" + (Kontener.lastNum++);
         setNumerSeryjny(newNumerSeryjny);
     }
 
     public void load(String rodzajProduktu, double masaLadunku)
     {
-        if (masaLadunku > getMaxLadownosc())
+        if (masaLadunku+getMasaLadunku() > getMaxLadownosc())
         {
             throw new Overfill_exc("za duża masa ładunku na ten kontener");
         }
